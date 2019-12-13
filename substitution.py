@@ -5,21 +5,13 @@ from pymatgen.transformations.standard_transformations import OrderDisorderedStr
 
 structure = Structure.from_file("POSCAR")
 
-
 substitution = SubstitutionTransformation({"Nb3+": {"Nb3+":0.5, "Fe3+":0.5}})
-
-# substitution = SubstitutionTransformation([("Nb3+", "Fe3+")])
-
 
 result = substitution.apply_transformation(structure)
 
-
 order = OrderDisorderedStructureTransformation(algo=2)
 
-#print(order)
 ResultOrder = order.apply_transformation(result, return_ranked_list=True)
-
-print(ResultOrder)
 
 for i, item in enumerate(ResultOrder):
     item['structure'].to(filename="POSCAR{:02d}".format(i))
